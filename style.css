@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css2?family=Comforter&display=swap");
+
+:root {
+  --white: #fbf8f1;
+  --cream: #f7ecde;
+  --cream-blk: #e9dac1;
+  --navy: #54bab9;
+}
+* {
+  box-sizing: border-box;
+}
+.img {
+  max-width: 100%;
+  object-fit: cover;
+}
+.menu {
+  display: flex;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.385);
+  z-index: 2;
+  /* grid-row: 1/2; */
+}
+.menu a {
+  color: var(--white);
+}
+.menu a:hover {
+  color: black;
+}
+.halaman {
+  /* display: grid; */
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+section {
+  max-width: 100%;
+  min-height: 300px;
+  /* font-family: "Comforter", cursive; */
+  /* font-size: 1.5rem; */
+}
+.intro {
+  text-align: center;
+  padding: 10px;
+}
+.logo {
+  /* grid-row: 1/3; */
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--cream);
+  object-fit: cover;
+  overflow: hidden;
+  position: relative;
+}
+.logo img {
+  object-fit: cover;
+  object-position: left;
+  width: 100%;
+  height: 100%;
+}
+.logo span {
+  position: absolute;
+  z-index: 1;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.111);
+}
+#pasangan {
+  text-align: center;
+  padding: 10px;
+  background-color: var(--cream-blk);
+}
+#pasangan .lk {
+  text-align: left;
+}
+#pasangan .p {
+  text-align: right;
+}
+#tanggal {
+  background-color: var(--navy);
+  padding: 10px;
+  text-align: center;
+}
+#gallery {
+  text-align: center;
+  background-color: rgb(67, 66, 66);
+  color: var(--white);
+  padding: 10px;
+}
+.gallery {
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.gallery img {
+  max-width: 200px;
+  object-fit: cover;
+  object-position: left;
+}
+/* .gallery {
+  max-width: 800px;
+  margin: auto;
+  column-count: 4;
+  column-gap: 5px;
+  row-gap: 5px;
+} */
+/* .gallery {
+  max-width: 800px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+} */
+
+#buku {
+  padding: 10px;
+}
+#buku h3 {
+  text-align: center;
+}
+.bk-tamu {
+  width: 80%;
+  max-width: 800px;
+  margin: auto;
+}
+.pesan {
+  border: 3px solid black;
+  border-radius: 10px;
+  width: 80%;
+  margin: auto;
+  max-width: 800px;
+  min-height: 300px;
+  max-height: 800px;
+  overflow: auto;
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./plugin/bootstrap/css/bootstrap.css" />
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/masonry/">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    </head>
+  <body>
+    <div class="halaman">
+      <nav class="menu">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#" class="nav-link">Pasangan</a>
+        <a href="#" class="nav-link">Tanggal</a>
+        <a href="#" class="nav-link">Buku Tamu</a>
+      </nav>
+      <header class="logo">
+        <img src="./src/foto5.jpg" alt="" />
+        <span>
+          Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
+            pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung
+            dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa
+            kasih dan sayang. ( Ar-Rum 21 )
+        </span>
+      </header>
+      <main class="utama">
+        <section class="intro">
+          <!-- <p>
+            Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan
+            pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung
+            dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa
+            kasih dan sayang. ( Ar-Rum 21 )
+          </p> -->
+        </section>
+        <section id="pasangan">
+          <h3>Pasangan</h3>
+          <div class="lk">
+            <p>habar</p>
+          </div>
+          <div class="p">
+            <p>anime</p>
+          </div>
+        </section>
+        <section id="tanggal" class="row">
+          <div class="akad col-lg-6">
+            <div class="card m-1">
+              <div class="card-header">
+                <p>Akad</p>
+              </div>
+              <div class="card-body">
+                <p>Rabu, 02 Februari 2022</p>
+
+                <p>10.00 WITA – Selesai</p>
+
+                <p>
+                  Tempat : Jl. A. Yani Km. 15.100 Komp Smk 1 Gambut Sebrang
+                  Mauble a’syifa
+                </p>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="btn btn-default">View Map</a>
+                <a href="#" class="btn btn-default">Save event</a>
+            </div>
+            </div>
+          </div>
+          <div class="resepsi col-lg-6">
+            <div class="card m-1">
+                <div class="card-header">
+                  <p>Resepsi</p>
+                </div>
+                <div class="card-body">
+                  <p>Minggu, 06 Februari 2022</p>
+  
+                  <p>10.00 WITA – Selesai</p>
+  
+                  <p>
+                    Tempat : Gedung Smkn 1 Gambut Jl. A. Yani Km. 15. 100
+                  </p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-default">View Map</a>
+                    <a href="#" class="btn btn-default">Save event</a>
+                </div>
+          </div>
+        </section>
+        <section id="gallery">
+            <h3>Gallery Foto</h3>
+            <div class="gallery">
+                <img src="./src/foto1.jpg" alt="" class="img">
+                <img src="./src/foto2.jpg" alt="" class="img">
+                <img src="./src/foto3.jpg" alt="" class="img">
+                <img src="./src/foto4.jpg" alt="" class="img">
+                <img src="./src/foto5.jpg" alt="" class="img">
+                <img src="./src/foto6.jpg" alt="" class="img">
+                <img src="./src/foto7.jpg" alt="" class="img">
+            </div>
+        </section>
+        <section id="buku">
+            <h3>Tinggalkan Pesan Anda</h3>
+          <form action="#" class="bk-tamu">
+            <p>Nama anda <input type="text" class="form-control nama" /></p>
+            <p>
+              Pesan
+              <textarea
+                name="pesan"
+                id=""
+                cols="30"
+                rows="10"
+                class="form-control pesan"
+              ></textarea>
+            </p>
+            <p>
+              Kehadiran
+              <select class="form-control hadir">
+                <option value="hadir">hadir</option>
+                <option value="tdk-hadir">tidak hadir</option>
+              </select>
+            </p>
+            <input type="submit" class="btn btn-default submit" value="kirim">
+        </form>
+        <div class="pesan"></div>
+        </section>
+      </main>
+      <footer class="footer"></footer>
+      <aside class="tambahan"></aside>
+    </div>
+    <script src="./plugin/jquery/jquery.js"></script>
+    <script src="./plugin/bootstrap/js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="./scrip.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
