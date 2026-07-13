@@ -1,0 +1,54 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    scroll-behavior: smooth;
+}
+header{
+    position: fixed;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.547);
+}
+nav{
+    text-align: right;
+    padding: 5px;
+}
+nav a{
+    padding: 10px;
+    text-decoration: none;
+    color: rgb(241, 225, 225);
+
+}
+a:hover{
+    color: white;
+}
+.halaman{
+    width: 100vw;
+    height: 100vh;
+}
+.red{
+    background-color: rgba(240, 54, 54, 0.806);
+}
+.green{
+    background-color: rgba(0, 128, 0, 0.611);
+}
+.blue{
+    background-color: rgba(0, 0, 255, 0.59);
+}
+
+.y {
+  width: 100vw;
+  height: 100vh;
+  flex-flow: column nowrap;
+  overflow-x: hidden;
+}
+.y.mandatory-scroll-snapping {
+  scroll-snap-type: y mandatory;
+}
+div {
+  text-align: center;
+  scroll-snap-align: center;
+  flex: none;
+}
+.y div {
+  /* padding-top: 5rem; */
+}
