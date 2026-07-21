@@ -1,29 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta name="description" content="Undangan Pernikahan - Nabili & Khaliza">
+    <title>Undangan Nabili & Haliza</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#alamat">Alamat</a>
-            <a href="#ucapan">ucapan</a>
-        </nav>
-    </header>    
-    <section class="y mandatory-scroll-snapping" dir="rtl">
-        <div class="halaman red" id="home">
-		<div class="card glassmorphism quote-card scroll-reveal">
-                    <p class="quote-text">"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."</p>
-                    <cite class="quote-author">— Ar-Rum: 21</cite>
+
+    <div id="loading-screen" class="loading-screen" role="dialog" aria-modal="true" aria-label="Memuat Undangan">
+        <div class="loading-content">
+            <svg class="flower-icon animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="48" height="48">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                <path d="M12 6a6 6 0 0 1 6 6M12 18a6 6 0 0 1-6-6"/>
+            </svg>
+            <h1 class="loading-title">Nabili & Haliza</h1>
+            <div class="progress-bar"><div class="progress-fill"></div></div>
+        </div>
+    </div>
+
+    <audio id="wedding-music" loop preload="auto">
+        <source src="./music.mp3" type="audio/mpeg">
+    </audio>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">N & H</div>
+        <button class="menu-toggle" aria-label="Buka Menu" aria-expanded="false">
+            <span class="hamburger"></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#quotes">Mempelai</a></li>
+            <li><a href="#acara">Acara</a></li>
+
+            <li><a href="#rsvp">RSVP</a></li>
+            <li><button id="dark-mode-toggle" class="theme-btn" aria-label="Ubah Tema">🌙</button></li>
+        </ul>
+        <div class="scroll-progress" id="scroll-bar"></div>
+    </nav>
+
+    <header class="hero" id="hero">
+        <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920');"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle fade-in">Undangan Pernikahan</p>
+            <h1 class="hero-title fade-in">Nabili & Haliza</h1>
+            <p class="hero-date fade-in">22 . 08 . 2026</p>
+            <button id="btn-open-invitation" class="btn btn-primary ripple fade-in">Buka Undangan</button>
+        </div>
+    </header>
+
+    <main id="main-content" class="main-content hidden">
+        
+        <section class="section quotes-section" id="quotes">
+            <div class="container visual-hidden-parent">
+                <div class="card glassmorphism quote-card scroll-reveal">
+                    <h2>Bismillahirrahmannirrahim</h2>
+                    <div>
+                        <p class="quote-text">"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."</p>
+                        <cite class="quote-author">— Ar-Rum: 21</cite>
+                    </div>
+                    <div style="margin: 30px;">
+                        <h3>Kami Mengundang Bapak/Ibu/Saudara/I</h3>
+                        <h3>untuk Berhadir di Pernikahan :</h3>
+                    </div>
+                    <div class="display-flex">
+                        <div class="mempelai">
+                            <h1>MUHAMMAD NABILI</h1>
+                            <P>Putra dari Bapak Abdul Manaf (Alm)<br> dan Ibu Misbah</P>
+                        </div>
+                        <div>
+                            <h1>&</h1>
+                        </div>
+                        <div class="mempelai">
+                            <h1>SITI NURHALIZA</h1>
+                            <P>Putri dari Bapak Hamberan (Alm)<br> dan Ibu </P>
+                        </div>
+                    </div>
                 </div>
-		<div class="container">
+            </div>
+        </section>
+        <!-- 
+        <section class="section mempelai-section" id="mempelai">
+            <div class="container">
                 <h2 class="section-title scroll-reveal">Mempelai</h2>
                 <div class="mempelai-grid">
                     <div class="card card-mempelai scroll-reveal">
@@ -40,45 +104,48 @@
                     </div>
                 </div>
             </div>
-		<div class="container">
+        </section> -->
+
+        <section class="section countdown-section" id="countdown">
+            <div class="container">
                 <h2 class="section-title scroll-reveal">Menuju Hari Bahagia</h2>
-                <div class="countdown-grid scroll-reveal" id="timer" data-date="2026-12-12T09:00:00">
+                <div class="countdown-grid scroll-reveal" id="timer" data-date="2026-08-22T09:00:00">
                     <div class="countdown-item"><span id="days">00</span><label>Hari</label></div>
                     <div class="countdown-item"><span id="hours">00</span><label>Jam</label></div>
                     <div class="countdown-item"><span id="minutes">00</span><label>Menit</label></div>
                     <div class="countdown-item"><span id="seconds">00</span><label>Detik</label></div>
                 </div>
             </div>
-		 <div class="container">
+        </section>
+
+        <section class="section acara-section" id="acara">
+            <div class="container">
                 <h2 class="section-title scroll-reveal">Detail Acara</h2>
                 <div class="acara-grid">
                     <div class="card card-acara scroll-reveal">
                         <h3 class="acara-type">Akad Nikah</h3>
                         <div class="acara-details">
-                            <p><strong>Pukul:</strong> 09:00 - 10:30 WIB</p>
-                            <p><strong>Hari/Tanggal:</strong> Sabtu, 12 Desember 2026</p>
-                            <p><strong>Lokasi:</strong> Hotel Luxury Astina, Ballroom Utama</p>
+                            <p><strong>Pukul:</strong> 08:00 - 09:30 WIB</p>
+                            <p><strong>Hari/Tanggal:</strong> Sabtu, 22 Agustus 2026</p>
+                            <p><strong>Lokasi:</strong> </p>
                         </div>
                         <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm ripple">Lihat Lokasi</a>
                     </div>
                     <div class="card card-acara scroll-reveal">
                         <h3 class="acara-type">Resepsi</h3>
                         <div class="acara-details">
-                            <p><strong>Pukul:</strong> 11:00 - 14:00 WIB</p>
-                            <p><strong>Hari/Tanggal:</strong> Sabtu, 12 Desember 2026</p>
-                            <p><strong>Lokasi:</strong> Hotel Luxury Astina, Ballroom Utama</p>
+                            <p><strong>Pukul:</strong> 10:00 - 14:00 WIB</p>
+                            <p><strong>Hari/Tanggal:</strong> Sabtu, 22 Agustus 2026</p>
+                            <p><strong>Lokasi:</strong> </p>
                         </div>
                         <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm ripple">Lihat Lokasi</a>
                     </div>
                 </div>
             </div>
+        </section>
 
-	</div>
-        <div class="halaman green" id="alamat">
-	<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4999.606497555815!2d114.63634647589947!3d-3.3281885966466085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2de42541188e1de7%3A0x8602160d71181a0a!2sAntasari%20Bintang%20Residence%20Blok%20A!5e1!3m2!1sid!2sid!4v1784013230365!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>	
-</div>
-        <div class="halaman blue" id="ucapan">
-	<div class="container">
+        <section class="section rsvp-section" id="rsvp">
+            <div class="container">
                 <h2 class="section-title scroll-reveal">Konfirmasi Kehadiran</h2>
                 <div class="card rsvp-card scroll-reveal">
                     <form id="rsvp-form">
@@ -108,14 +175,41 @@
                     </form>
                 </div>
             </div>
+        </section>
 
-</div>
-    </section>
-    
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/a121d47811.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+        <section class="section wishes-section" id="wishes">
+            <div class="container">
+                <h2 class="section-title scroll-reveal">Ucapan Kebahagiaan</h2>
+                <div class="wishes-container" id="wishes-list">
+                    </div>
+            </div>
+        </section>
+
+        <section class="section penutup-section" id="penutup">
+            <div class="container text-center scroll-reveal">
+                <p class="penutup-text">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami.</p>
+                <h2 class="penutup-couple">Nabili & Haliza</h2>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2026 Hancau Creative Digital. All Rights Reserved.</p>
+                <div class="footer-socials">
+                    <a href="https://invitation.hancau.my.id/" aria-label="web">WEB</a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <div class="floating-controls hidden" id="floating-actions">
+        <button id="music-control" class="btn-floating ripple" aria-label="Jeda Musik">🎵</button>
+        <button id="back-to-top" class="btn-floating ripple" aria-label="Kembali ke Atas">▲</button>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>

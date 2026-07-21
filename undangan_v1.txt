@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="id">
+ <head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260707-23-1943d6c"}');</script><script src="/_sdk/f432b76fb310b513.telemetry_sdk.js" integrity="sha512-9FJQ55EKmmqhyyik8BhrMVfm0+iYYfb8uOlRsjtkxJMEI97qOVEI4PnHohDjQAtvAep0IOEpdQ64eki0sz62ug=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Invitation</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <style>
+        :root {
+            --white: #FFFFFF;
+            --cream: #F8F5F0;
+            --gold: #C8A96A;
+            --gold-dark: #A8894A;
+            --gray-light: #F2F2F2;
+            --text-dark: #2D2D2D;
+            --text-muted: #6B6B6B;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-dark); overflow-x: hidden; }
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+        .section-padding { padding: 80px 20px; }
+        .card { background: var(--white); border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .gold-text { color: var(--gold); }
+        .gold-bg { background: var(--gold); }
+        .cream-bg { background: var(--cream); }
+
+        /* Loading */
+        #loading { position: fixed; inset: 0; z-index: 9999; background: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease; }
+        #loading.hidden { opacity: 0; pointer-events: none; }
+        .loader-bar { width: 120px; height: 2px; background: var(--gray-light); border-radius: 2px; overflow: hidden; margin-top: 24px; }
+        .loader-bar::after { content: ''; display: block; width: 60%; height: 100%; background: var(--gold); animation: load 1.5s ease infinite; }
+        @keyframes load { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
+
+        /* Hero */
+        .hero { height: calc(100 * min(var(--vh, 1vh), 1vh)); position: relative; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); }
+        .hero-content { position: relative; z-index: 2; color: white; padding: 20px; }
+
+        /* Animations */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 30px; }
+        .timeline::before { content: ''; position: absolute; left: 14px; top: 0; bottom: 0; width: 2px; background: var(--gold); }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-dot { position: absolute; left: -24px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); border: 2px solid var(--white); box-shadow: 0 0 0 3px var(--gold); }
+
+        /* Gallery */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+        .gallery-item { border-radius: 12px; overflow: hidden; cursor: pointer; aspect-ratio: 4/5; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        /* Lightbox */
+        #lightbox { position: fixed; inset: 0; z-index: 9998; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; }
+        #lightbox.active { display: flex; }
+        #lightbox img { max-width: 90%; max-height: 85vh; border-radius: 12px; }
+
+        /* Countdown */
+        .countdown-box { text-align: center; padding: 16px 24px; }
+        .countdown-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; color: var(--gold); }
+
+        /* Scroll progress */
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--gold); z-index: 999; transition: width 0.1s; }
+
+        /* Floating buttons */
+        .float-btn { position: fixed; z-index: 900; width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s; }
+        .float-btn:hover { transform: scale(1.1); }
+        #music-btn { bottom: 80px; right: 20px; background: var(--gold); color: white; }
+        #top-btn { bottom: 20px; right: 20px; background: var(--white); color: var(--gold); opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        #top-btn.show { opacity: 1; pointer-events: auto; }
+
+        /* Nav */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 800; padding: 16px 24px; transition: background 0.3s, box-shadow 0.3s; }
+        nav.scrolled { background: rgba(255,255,255,0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-links { display: none; position: absolute; top: 60px; right: 20px; background: white; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); padding: 16px; }
+        .nav-links.open { display: flex; flex-direction: column; gap: 12px; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 0.9rem; padding: 8px 16px; border-radius: 8px; transition: background 0.2s; }
+        .nav-links a:hover { background: var(--cream); }
+
+        /* Responsive video */
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 16px; overflow: hidden; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        /* Form */
+        .form-input { width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 12px; font-family: 'Poppins', sans-serif; font-size: 0.9rem; transition: border-color 0.2s; outline: none; }
+        .form-input:focus { border-color: var(--gold); }
+
+        .btn-gold { background: var(--gold); color: white; border: none; padding: 14px 32px; border-radius: 12px; font-family: 'Poppins', sans-serif; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+        .btn-gold:hover { background: var(--gold-dark); transform: translateY(-1px); }
+
+        @media (min-width: 768px) {
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+  <script src="/_sdk/0179d719c431a79e.data_sdk.js" type="text/javascript" integrity="sha512-OsRvJkI5GkC3MJQcgotQYotpzrMSX415GiKKgvYdxQEEkzD/fdchShO2FMSy0PJr/tiINMXOk5Vl2zAgg6bUiA=="></script>
+  <script src="/_sdk/0b3af1c300e720aa.resizing_sdk.js" type="text/javascript" integrity="sha512-nX1P6oXZmEY5wCI2lUVg3BwKu1cr0yi+ZpXgZ0Yn90vkSwvpmyzBMvOyD6VLJUtBwFI2dSrw1b6OvORxSggw3w=="></script>
+ </head>
+ <body data-template-id="__page-root"><!-- Scroll Progress -->
+  <div id="scroll-progress"></div><!-- Loading Screen -->
+  <div id="loading" role="status" aria-label="Memuat undangan">
+   <svg width="60" height="60" viewbox="0 0 60 60" fill="none">
+    <path d="M30 5C30 5 20 15 20 25C20 30.5 24.5 35 30 35C35.5 35 40 30.5 40 25C40 15 30 5 30 5Z" stroke="#C8A96A" stroke-width="1.5" fill="none" /><path d="M30 55C30 55 15 42 15 32C15 22 30 20 30 30C30 20 45 22 45 32C45 42 30 55 30 55Z" stroke="#C8A96A" stroke-width="1.5" fill="none" />
+   </svg>
+   <p data-template-id="loading-names" class="canva-text mt-4 text-lg" style="font-family:'Playfair Display',serif; color: var(--gold);"></p>
+   <div class="loader-bar"></div>
+  </div><!-- Nav -->
+  <nav id="navbar" aria-label="Navigasi utama">
+   <div class="flex items-center justify-between max-w-6xl mx-auto"><span data-template-id="nav-brand" class="canva-text text-sm font-medium" style="font-family:'Playfair Display',serif;"></span> <button id="hamburger" aria-label="Menu navigasi" class="p-2" style="background:none;border:none;cursor:pointer;"> <i data-lucide="menu" style="width:24px;height:24px;color:var(--text-dark)"></i> </button>
+   </div>
+   <div class="nav-links" id="nav-links" role="menu"><a href="#couple" role="menuitem">Mempelai</a> <a href="#events" role="menuitem">Acara</a> <a href="#gallery" role="menuitem">Galeri</a> <a href="#rsvp" role="menuitem">RSVP</a> <a href="#gift" role="menuitem">Hadiah</a>
+   </div>
+  </nav><!-- Hero -->
+  <section class="hero" id="hero"><img data-template-id="hero-bg" class="canva-image absolute inset-0 w-full h-full object-cover" loading="lazy">
+   <div class="hero-overlay"></div>
+   <div class="hero-content">
+    <p data-template-id="hero-label" class="canva-text text-sm uppercase tracking-[4px] mb-4 opacity-80"></p>
+    <h1 data-template-id="hero-groom-name" class="canva-text text-4xl md:text-6xl font-semibold"></h1>
+    <p class="text-2xl md:text-3xl my-2 opacity-70" style="font-family:'Playfair Display',serif;">&amp;</p>
+    <h1 data-template-id="hero-bride-name" class="canva-text text-4xl md:text-6xl font-semibold"></h1>
+    <p data-template-id="hero-date" class="canva-text mt-6 text-sm tracking-[2px] uppercase opacity-80"></p><button data-template-id="open-btn" class="canva-button btn-gold mt-8" id="open-invitation"></button>
+   </div>
+  </section><!-- Main Content (hidden until opened) -->
+  <div id="main-content" style="display:none;"><!-- Quote -->
+   <section class="section-padding cream-bg">
+    <div class="max-w-2xl mx-auto text-center">
+     <div class="card p-8 md:p-12 fade-up">
+      <svg class="mx-auto mb-4" width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="#C8A96A" stroke-width="1.5">
+       <path d="M12 21C12 21 3 14 3 8.5C3 5.42 5.42 3 8.5 3C10.24 3 11.91 3.81 12 5C12.09 3.81 13.76 3 15.5 3C18.58 3 21 5.42 21 8.5C21 14 12 21 12 21Z" />
+      </svg>
+      <p data-template-id="quote-text" class="canva-text text-lg md:text-xl italic leading-relaxed" style="font-family:'Playfair Display',serif;"></p>
+      <p data-template-id="quote-source" class="canva-text mt-4 text-sm opacity-60"></p>
+     </div>
+    </div>
+   </section><!-- Couple -->
+   <section class="section-padding" id="couple">
+    <h2 data-template-id="couple-title" class="canva-text text-3xl text-center mb-12 fade-up"></h2>
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 px-4">
+     <div class="card p-8 text-center fade-up">
+      <div class="w-36 h-36 mx-auto rounded-full overflow-hidden mb-6 border-4" style="border-color:var(--gold);"><img data-template-id="groom-photo" class="canva-image w-full h-full object-cover" loading="lazy">
+      </div>
+      <h3 data-template-id="groom-name" class="canva-text text-2xl"></h3>
+      <p data-template-id="groom-parents" class="canva-text text-sm mt-2 opacity-60"></p>
+      <p data-template-id="groom-desc" class="canva-text text-sm mt-3 opacity-80"></p>
+     </div>
+     <div class="card p-8 text-center fade-up">
+      <div class="w-36 h-36 mx-auto rounded-full overflow-hidden mb-6 border-4" style="border-color:var(--gold);"><img data-template-id="bride-photo" class="canva-image w-full h-full object-cover" loading="lazy">
+      </div>
+      <h3 data-template-id="bride-name" class="canva-text text-2xl"></h3>
+      <p data-template-id="bride-parents" class="canva-text text-sm mt-2 opacity-60"></p>
+      <p data-template-id="bride-desc" class="canva-text text-sm mt-3 opacity-80"></p>
+     </div>
+    </div>
+   </section><!-- Countdown -->
+   <section class="section-padding cream-bg">
+    <h2 data-template-id="countdown-title" class="canva-text text-3xl text-center mb-8 fade-up"></h2>
+    <div class="flex justify-center gap-4 md:gap-8 flex-wrap fade-up">
+     <div class="countdown-box card px-6 py-4">
+      <div class="countdown-num" id="cd-days">
+       00
+      </div>
+      <p class="text-xs mt-1 opacity-60">Hari</p>
+     </div>
+     <div class="countdown-box card px-6 py-4">
+      <div class="countdown-num" id="cd-hours">
+       00
+      </div>
+      <p class="text-xs mt-1 opacity-60">Jam</p>
+     </div>
+     <div class="countdown-box card px-6 py-4">
+      <div class="countdown-num" id="cd-mins">
+       00
+      </div>
+      <p class="text-xs mt-1 opacity-60">Menit</p>
+     </div>
+     <div class="countdown-box card px-6 py-4">
+      <div class="countdown-num" id="cd-secs">
+       00
+      </div>
+      <p class="text-xs mt-1 opacity-60">Detik</p>
+     </div>
+    </div>
+   </section><!-- Events -->
+   <section class="section-padding" id="events">
+    <h2 data-template-id="events-title" class="canva-text text-3xl text-center mb-12 fade-up"></h2>
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 px-4">
+     <div class="card p-8 text-center fade-up">
+      <svg class="mx-auto mb-4" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="#C8A96A" stroke-width="1.5">
+       <circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" />
+      </svg>
+      <h3 data-template-id="akad-title" class="canva-text text-xl mb-4"></h3>
+      <p data-template-id="akad-date" class="canva-text text-sm opacity-70"></p>
+      <p data-template-id="akad-time" class="canva-text text-sm opacity-70 mt-1"></p>
+      <p data-template-id="akad-location" class="canva-text text-sm mt-3"></p><a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 btn-gold text-sm px-6 py-2">Lihat Lokasi</a>
+     </div>
+     <div class="card p-8 text-center fade-up">
+      <svg class="mx-auto mb-4" width="40" height="40" viewbox="0 0 24 24" fill="none" stroke="#C8A96A" stroke-width="1.5">
+       <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" /><circle cx="12" cy="7" r="4" />
+      </svg>
+      <h3 data-template-id="resepsi-title" class="canva-text text-xl mb-4"></h3>
+      <p data-template-id="resepsi-date" class="canva-text text-sm opacity-70"></p>
+      <p data-template-id="resepsi-time" class="canva-text text-sm opacity-70 mt-1"></p>
+      <p data-template-id="resepsi-location" class="canva-text text-sm mt-3"></p><a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 btn-gold text-sm px-6 py-2">Lihat Lokasi</a>
+     </div>
+    </div>
+   </section><!-- Love Story -->
+   <section class="section-padding cream-bg">
+    <h2 data-template-id="story-title" class="canva-text text-3xl text-center mb-12 fade-up"></h2>
+    <div class="max-w-2xl mx-auto px-4">
+     <div class="timeline">
+      <div class="timeline-item fade-up">
+       <div class="timeline-dot"></div>
+       <h4 data-template-id="story-1-title" class="canva-text text-lg font-semibold"></h4>
+       <p data-template-id="story-1-date" class="canva-text text-xs opacity-50 mt-1"></p>
+       <p data-template-id="story-1-desc" class="canva-text text-sm opacity-70 mt-2"></p>
+      </div>
+      <div class="timeline-item fade-up">
+       <div class="timeline-dot"></div>
+       <h4 data-template-id="story-2-title" class="canva-text text-lg font-semibold"></h4>
+       <p data-template-id="story-2-date" class="canva-text text-xs opacity-50 mt-1"></p>
+       <p data-template-id="story-2-desc" class="canva-text text-sm opacity-70 mt-2"></p>
+      </div>
+      <div class="timeline-item fade-up">
+       <div class="timeline-dot"></div>
+       <h4 data-template-id="story-3-title" class="canva-text text-lg font-semibold"></h4>
+       <p data-template-id="story-3-date" class="canva-text text-xs opacity-50 mt-1"></p>
+       <p data-template-id="story-3-desc" class="canva-text text-sm opacity-70 mt-2"></p>
+      </div>
+      <div class="timeline-item fade-up">
+       <div class="timeline-dot"></div>
+       <h4 data-template-id="story-4-title" class="canva-text text-lg font-semibold"></h4>
+       <p data-template-id="story-4-date" class="canva-text text-xs opacity-50 mt-1"></p>
+       <p data-template-id="story-4-desc" class="canva-text text-sm opacity-70 mt-2"></p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Gallery -->
+   <section class="section-padding" id="gallery">
+    <h2 data-template-id="gallery-title" class="canva-text text-3xl text-center mb-12 fade-up"></h2>
+    <div class="max-w-5xl mx-auto px-4 gallery-grid">
+     <div class="gallery-item fade-up">
+      <img data-template-id="gallery-1" class="canva-image" loading="lazy">
+     </div>
+     <div class="gallery-item fade-up">
+      <img data-template-id="gallery-2" class="canva-image" loading="lazy">
+     </div>
+     <div class="gallery-item fade-up">
+      <img data-template-id="gallery-3" class="canva-image" loading="lazy">
+     </div>
+     <div class="gallery-item fade-up">
+      <img data-template-id="gallery-4" class="canva-image" loading="lazy">
+     </div>
+     <div class="gallery-item fade-up">
+      <img data-template-id="gallery-5" class="canva-image" loading="lazy">
+     </div>
+     <div class="gallery-item fade-up">
+      <img data-template-id="gallery-6" class="canva-image" loading="lazy">
+     </div>
+    </div>
+   </section><!-- Lightbox -->
+   <div id="lightbox" role="dialog" aria-label="Lightbox galeri"><button id="close-lightbox" style="position:absolute;top:20px;right:20px;background:none;border:none;color:white;cursor:pointer;font-size:2rem;">×</button> <img id="lightbox-img" alt="Gallery photo">
+   </div><!-- Video -->
+   <section class="section-padding cream-bg">
+    <h2 data-template-id="video-title" class="canva-text text-3xl text-center mb-8 fade-up"></h2>
+    <div class="max-w-3xl mx-auto px-4 fade-up">
+     <div class="video-wrapper card"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Prewedding Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+     </div>
+    </div>
+   </section><!-- RSVP -->
+   <section class="section-padding" id="rsvp">
+    <h2 data-template-id="rsvp-title" class="canva-text text-3xl text-center mb-8 fade-up"></h2>
+    <div class="max-w-lg mx-auto px-4 fade-up">
+     <form id="rsvp-form" class="card p-8 space-y-4">
+      <div><label data-template-id="rsvp-name-label" class="canva-text block text-sm mb-1" for="rsvp-name"></label> <input id="rsvp-name" type="text" class="form-input" required>
+      </div>
+      <div><label data-template-id="rsvp-guests-label" class="canva-text block text-sm mb-1" for="rsvp-guests"></label> <input id="rsvp-guests" type="number" min="1" max="5" value="1" class="form-input">
+      </div>
+      <div><label data-template-id="rsvp-confirm-label" class="canva-text block text-sm mb-1" for="rsvp-confirm"></label> <select id="rsvp-confirm" class="form-input"> <option value="hadir">Hadir</option> <option value="tidak">Tidak Hadir</option> <option value="mungkin">Mungkin</option> </select>
+      </div>
+      <div><label data-template-id="rsvp-message-label" class="canva-text block text-sm mb-1" for="rsvp-message"></label> <textarea id="rsvp-message" rows="3" class="form-input"></textarea>
+      </div><button data-template-id="rsvp-submit" type="submit" class="canva-button btn-gold w-full"></button>
+     </form>
+     <div id="rsvp-success" class="card p-8 text-center hidden">
+      <svg class="mx-auto mb-4" width="48" height="48" viewbox="0 0 24 24" fill="none" stroke="#C8A96A" stroke-width="2">
+       <path d="M20 6L9 17l-5-5" />
+      </svg>
+      <p data-template-id="rsvp-success-text" class="canva-text text-lg"></p>
+     </div>
+    </div>
+   </section><!-- Gift -->
+   <section class="section-padding cream-bg" id="gift">
+    <h2 data-template-id="gift-title" class="canva-text text-3xl text-center mb-8 fade-up"></h2>
+    <div class="max-w-lg mx-auto px-4 fade-up">
+     <div class="card p-8 text-center">
+      <p data-template-id="gift-bank" class="canva-text text-sm opacity-60 mb-2"></p>
+      <p data-template-id="gift-account" class="canva-text text-2xl font-semibold" style="font-family:'Playfair Display',serif;"></p>
+      <p data-template-id="gift-name" class="canva-text text-sm opacity-60 mt-1"></p><button id="copy-btn" class="btn-gold mt-6 text-sm px-6 py-2">Salin Nomor Rekening</button>
+      <p id="copy-msg" class="text-xs mt-2 opacity-0 transition-opacity" style="color:var(--gold);">Tersalin!</p>
+     </div>
+    </div>
+   </section><!-- Messages -->
+   <section class="section-padding">
+    <h2 data-template-id="messages-title" class="canva-text text-3xl text-center mb-8 fade-up"></h2>
+    <div class="max-w-2xl mx-auto px-4" id="messages-list"></div>
+   </section><!-- Closing -->
+   <section class="section-padding cream-bg text-center">
+    <div class="max-w-2xl mx-auto fade-up">
+     <p data-template-id="closing-text" class="canva-text text-lg opacity-80 mb-6"></p>
+     <h2 data-template-id="closing-names" class="canva-text text-3xl"></h2>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-8 px-4 text-center" style="background:var(--text-dark);">
+    <div class="flex justify-center gap-6 mb-4"><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i data-lucide="instagram" style="width:20px;height:20px;color:var(--gold)"></i></a> <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i data-lucide="message-circle" style="width:20px;height:20px;color:var(--gold)"></i></a> <a href="mailto:hello@wedding.com" aria-label="Email"><i data-lucide="mail" style="width:20px;height:20px;color:var(--gold)"></i></a>
+    </div>
+    <p data-template-id="footer-text" class="canva-text text-xs opacity-50" style="color:var(--gray-light);"></p>
+   </footer>
+  </div><!-- Floating Buttons --> <button class="float-btn" id="music-btn" aria-label="Toggle musik"> <i data-lucide="music" style="width:20px;height:20px;"></i> </button> <button class="float-btn" id="top-btn" aria-label="Kembali ke atas"> <i data-lucide="chevron-up" style="width:20px;height:20px;"></i> </button>
+  <script src="/_sdk/0754dd8df9d57b49.editing_sdk.js" integrity="sha512-yvKoMK4Ofz067LVljR1M05H+IiYMlPeB85tq/r60nkBNxvzYXf2rquTC3ObXq4eufSZVQ6Z6qWfK1GFj0HTO4w=="></script>
+  <script>
+        // Init Lucide
+        lucide.createIcons();
+
+        // Loading screen
+        setTimeout(() => document.getElementById('loading').classList.add('hidden'), 2000);
+
+        // Open invitation
+        document.getElementById('open-invitation').addEventListener('click', () => {
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('hero').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Hamburger menu
+        document.getElementById('hamburger').addEventListener('click', () => {
+            document.getElementById('nav-links').classList.toggle('open');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+            // Scroll progress
+            const h = document.documentElement.scrollHeight - window.innerHeight;
+            document.getElementById('scroll-progress').style.width = h > 0 ? (window.scrollY / h * 100) + '%' : '0%';
+            // Back to top
+            document.getElementById('top-btn').classList.toggle('show', window.scrollY > 400);
+        });
+
+        // Back to top
+        document.getElementById('top-btn').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Countdown - target date: 2026-08-15
+        const targetDate = new Date('2026-08-15T08:00:00+0800');
+        function updateCountdown() {
+            const now = new Date();
+            const diff = targetDate - now;
+            if (diff <= 0) return;
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('cd-days').textContent = String(d).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+            document.getElementById('cd-mins').textContent = String(m).padStart(2, '0');
+            document.getElementById('cd-secs').textContent = String(s).padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Gallery lightbox
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                if (img && img.src) {
+                    document.getElementById('lightbox-img').src = img.src;
+                    document.getElementById('lightbox').classList.add('active');
+                }
+            });
+        });
+        document.getElementById('close-lightbox').addEventListener('click', () => document.getElementById('lightbox').classList.remove('active'));
+        document.getElementById('lightbox').addEventListener('click', (e) => { if (e.target === e.currentTarget) e.currentTarget.classList.remove('active'); });
+
+        // RSVP form
+        document.getElementById('rsvp-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const data = {
+                name: document.getElementById('rsvp-name').value,
+                guests: document.getElementById('rsvp-guests').value,
+                confirm: document.getElementById('rsvp-confirm').value,
+                message: document.getElementById('rsvp-message').value,
+                timestamp: new Date().toISOString()
+            };
+            const messages = JSON.parse(localStorage.getItem('wedding-rsvp') || '[]');
+            messages.push(data);
+            localStorage.setItem('wedding-rsvp', JSON.stringify(messages));
+            document.getElementById('rsvp-form').classList.add('hidden');
+            document.getElementById('rsvp-success').classList.remove('hidden');
+            renderMessages();
+        });
+
+        // Render messages
+        function renderMessages() {
+            const list = document.getElementById('messages-list');
+            const messages = JSON.parse(localStorage.getItem('wedding-rsvp') || '[]');
+            list.innerHTML = messages.slice(-10).reverse().map(m => `
+                <div class="card p-5 mb-4 fade-up visible">
+                    <p class="font-semibold text-sm">${m.name}</p>
+                    <p class="text-sm opacity-70 mt-1">${m.message || '-'}</p>
+                    <p class="text-xs opacity-40 mt-2">${m.confirm === 'hadir' ? '✓ Hadir' : m.confirm === 'tidak' ? '✗ Tidak Hadir' : '? Mungkin'}</p>
+                </div>
+            `).join('');
+        }
+        renderMessages();
+
+        // Copy button
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            const acc = document.querySelector('[data-template-id="gift-account"]');
+            navigator.clipboard.writeText(acc.textContent.trim()).then(() => {
+                const msg = document.getElementById('copy-msg');
+                msg.style.opacity = '1';
+                setTimeout(() => msg.style.opacity = '0', 2000);
+            });
+        });
+
+        // Music toggle (Web Audio placeholder)
+        let musicPlaying = false;
+        document.getElementById('music-btn').addEventListener('click', () => {
+            musicPlaying = !musicPlaying;
+            document.getElementById('music-btn').style.opacity = musicPlaying ? '1' : '0.5';
+        });
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a17b33a0a0cef886',t:'MTc4MzQ3Mjk0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
