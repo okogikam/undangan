@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded',async () => {
 
     // ==========================================
     // 1. SYSTEM INITIALIZATION & STATE
@@ -216,28 +216,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 9. LOCAL STORAGE PERSISTENCE (RSVP & WISHES)
     // ==========================================
-    const loadWishes = () => {
-        const wishes = JSON.parse(localStorage.getItem('wedding_wishes')) || [
+    const loadWishes = async (wish) => {
+        const wishes = wish || [
             { name: "Budi Santoso", status: "hadir", message: "Selamat menempuh hidup baru Rama dan Sinta! Bahagia dunia akhirat." },
             { name: "Siti Rahma", status: "tidak-hadir", message: "Selamat ya! Maaf belum bisa hadir langsung karena dinas luar kota, sukses acaranya!" }
         ];
-
-        dom.wishesList.innerHTML = wishes.map(wish => `
-            <div class="card card-wish scroll-reveal active">
-                <div class="wish-header">
-                    <span class="wish-name">${escapeHTML(wish.name)}</span>
-                    <span class="wish-status ${wish.status === 'hadir' ? 'status-hadir' : 'status-tidak'}">
-                        ${wish.status === 'hadir' ? 'Hadir' : 'Absen'}
-                    </span>
+        
+        for(let i = wish.length - 1; i > 0; i--){
+            dom.wishesList.innerHTML += `
+                <div class="card card-wish scroll-reveal active">
+                    <div class="wish-header">
+                        <span class="wish-name">${wish[i][1]}</span>
+                        <span class="wish-status ${wish[i][3] === 'hadir' ? 'status-hadir' : 'status-tidak'}">
+                            ${wish[i][3] === 'hadir' ? 'Hadir' : 'Absen'}
+                        </span>
+                    </div>
+                    <p class="wish-text">${wish[i][4]}</p>
                 </div>
-                <p class="wish-text">${escapeHTML(wish.message)}</p>
-            </div>
-        `).join('');
+            `;
+        }
     };
 
-    dom.rsvpForm.addEventListener('submit', (e) => {
+    dom.rsvpForm.addEventListener('submit',async (e) => {
         e.preventDefault();
-        
+        let btnSubmit = document.querySelector('.fa-spinner');
+        btnSubmit.classList.remove("d-none");
         const newWish = {
             name: document.getElementById('rsvp-name').value,
             guests: document.getElementById('rsvp-guests').value,
@@ -245,12 +248,12 @@ document.addEventListener('DOMContentLoaded', () => {
             message: document.getElementById('rsvp-message').value
         };
 
-        const currentWishes = JSON.parse(localStorage.getItem('wedding_wishes')) || [];
-        currentWishes.unshift(newWish); // Tambah data ke antrean teratas
-        localStorage.setItem('wedding_wishes', JSON.stringify(currentWishes));
+        const currentWishes = await fetch(`https://script.google.com/macros/s/AKfycbxAgwoojTjPvRWilfDgvY4spoRM1Wbpd1qEcZb0uitR55IP6LdJQH9m-e1dxLP5pQCZMw/exec?type=upload&nama=${newWish.name}&orang=${newWish.guests}&hadir=${newWish.status}&pesan=${newWish.message}`)
+        .then(r => { return r.json()})
+        btnSubmit.classList.add("d-none")
 
         dom.rsvpForm.reset();
-        loadWishes();
+        loadWishes(currentWishes);
         alert('Terima kasih atas konfirmasi dan doa restu Anda!');
     });
 
@@ -260,8 +263,10 @@ document.addEventListener('DOMContentLoaded', () => {
             tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
         );
     }
-
-    loadWishes();
+    let wish = await fetch("https://script.google.com/macros/s/AKfycbxAgwoojTjPvRWilfDgvY4spoRM1Wbpd1qEcZb0uitR55IP6LdJQH9m-e1dxLP5pQCZMw/exec").then(r=>{
+        return r.json();
+    });
+    loadWishes(wish);
 
     // ==========================================
     // 10. SYSTEM UTILITIES (COPY TO CLIPBOARD & THEME)
